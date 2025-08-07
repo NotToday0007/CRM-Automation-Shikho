@@ -19,10 +19,10 @@ async function loginExpectSuccess(page, email, password) {
 
   const designation = page.locator('.cr-user-designation');
   await expect(designation).toBeVisible();
-  console.log('🧑‍💼 Logged in as:', await designation.textContent());
+  console.log('Logged in as:', await designation.textContent());
 }
 
-//Helper: Login expecting toast error (e.g., wrong creds)
+//Helper: Login expecting error 
 async function loginExpectFailure(page, email, password) {
   await page.goto(loginUrl);
   await page.getByRole('textbox', { name: 'Email Address' }).fill(email);
@@ -48,7 +48,7 @@ test.describe('CRM Login Scenario', () => {
     await loginExpectSuccess(page, validEmail, validPassword);
   });
 
-  //Negative Login Failures (toast)
+  //Negative Login Failures
   test('Invalid email with valid password', async ({ page }) => {
     await loginExpectFailure(page, 'wrongemail@gmail.com', validPassword);
   });
